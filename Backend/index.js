@@ -22,12 +22,34 @@ app.get("/", (req, res) => {
 });
 
 
+const mongoose = require('mongoose')
+const countrySchema = require('./models/country.js')
+const Country = mongoose.model('country', countrySchema, 'country')
+const configs = require('./configs/config.json');
+const connector = mongoose.connect(configs.mongoDBConnection, {useNewUrlParser: true , useUnifiedTopology: true });
+
+async function createCountry(name, code) {
+  return new Country({
+    name,
+    code
+  }).save()
+}
+
+async function getCountries() {
+  return await Country.find()
+}
+
 /**
  * CRUD - For list of countries (list is public, others are protected with basic authentication)
  */
 // LIST
-app.get("/api/v1/countries", (req, res) => {
-    res.status(200).send("List all countries inside database");
+app.get("/api/v1/countries", async (req, res) => {
+    await createCountry("Portugal", "PT");
+    let countries = await connector.then(async () => {
+        return getCountries()
+    })
+    console.log(countries);
+    res.status(200).send(countries);
 });
 
 // CREATE
