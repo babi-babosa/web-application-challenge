@@ -42,7 +42,7 @@ app.put("/api/v1/countries", (req, res) => {
 
 // DELETE
 app.delete("/api/v1/countries", (req, res) => {
-    res.status(200).send("WHATABYTE: Food For Devs");
+    res.status(200).send("Delete a country");
 });
 
 
