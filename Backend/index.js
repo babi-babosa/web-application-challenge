@@ -1,5 +1,5 @@
 const express = require("express");
-const path = require("path");
+const bodyParser = require('body-parser');
 const basicAuth = require('express-basic-auth');
 const databaseConnection = require("./factory/database-connection.js");
 const CountryController = require("./controllers/countryController.js");
@@ -11,6 +11,7 @@ const countryController = new CountryController();
  * App Variables
  */
 const app = express();
+app.use(bodyParser.json());
 const port = configs.port || "8000";
 const basicAuthentication = basicAuth({
     authorizer: basicAuthCheck,
@@ -54,22 +55,40 @@ app.get("/api/v1/countries", (req, res) => {
     )
     .catch(
         error => res.status(400).json(error)
-    )
+    );
 });
 
 // CREATE
 app.post("/api/v1/countries", basicAuthentication, (req, res) => {
-    res.status(200).send("Add a new country");
+    countryController.createAction(req, res)
+    .then(
+        payload => res.json(payload)
+    )
+    .catch(
+        error => res.status(400).json(error)
+    );
 });
 
 // UPDATE
 app.put("/api/v1/countries", basicAuthentication, (req, res) => {
-    res.status(200).send("Update a country");
+    countryController.updateAction(req, res)
+    .then(
+        payload => res.json(payload)
+    )
+    .catch(
+        error => res.status(400).json(error)
+    );
 });
 
 // DELETE
 app.delete("/api/v1/countries", basicAuthentication, (req, res) => {
-    res.status(200).send("Delete a country");
+    countryController.deleteAction(req, res)
+    .then(
+        payload => res.json(payload)
+    )
+    .catch(
+        error => res.status(400).json(error)
+    );
 });
 
 /**
