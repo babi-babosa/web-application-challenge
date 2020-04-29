@@ -12,7 +12,7 @@ function initDb(callback) {
     }
 
     mongoose.connect(configs.mongoDBConnection, {
-        useNewUrlParser: true , 
+        useNewUrlParser: true ,
         useUnifiedTopology: true,
     })
     .then(
