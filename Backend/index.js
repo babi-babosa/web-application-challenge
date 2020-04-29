@@ -70,18 +70,18 @@ app.post("/api/v1/countries", basicAuthentication, (req, res) => {
 });
 
 // UPDATE
-app.put("/api/v1/countries", basicAuthentication, (req, res) => {
+app.put("/api/v1/countries/:id", basicAuthentication, (req, res) => {
     countryController.updateAction(req, res)
     .then(
         payload => res.json(payload)
     )
     .catch(
-        error => res.status(400).json(error)
+        error => res.status(error.errorStatus).json(error.response)
     );
 });
 
 // DELETE
-app.delete("/api/v1/countries", basicAuthentication, (req, res) => {
+app.delete("/api/v1/countries/:id", basicAuthentication, (req, res) => {
     countryController.deleteAction(req, res)
     .then(
         payload => res.json(payload)

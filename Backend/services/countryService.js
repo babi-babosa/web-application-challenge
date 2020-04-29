@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const countrySchema = require('../models/country.js');
 const Country = mongoose.model('country', countrySchema, 'country');
+const ErrorResponse = require('../helpers/errorResponse.js');
 
 module.exports = class CountryService {
     constructor() {
@@ -33,27 +34,24 @@ module.exports = class CountryService {
         });
     }
 
-    updateCountry(id, name, code) {
+    updateCountry(id, newData) {
         return new Promise(async (resolve, reject) => {
-            await Country.update({
+            await Country.updateMany({
                 _id: id,
-            }, {
-                name,
-                code,
-            })
+            }, newData)
             .then(res => {
-                if (res.n == 0 ) {
-                    return resolve({
-                        message: `Country with id ${id} does not exist in our system`
-                    });
-                }
                 resolve({
                     message: `Country with id ${id} was successfully updated`
                 });
             })
             .catch(error => {
-                reject({
-                    message: error.message
+                console.log("Errror", error)
+                reject(
+                {
+                    errorStatus: 400,
+                    response: {
+                        error_message: `Country with id ${id} not exist in our system`
+                    }
                 });
             });
         });

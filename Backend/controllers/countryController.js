@@ -28,7 +28,7 @@ module.exports = class CountryController {
     updateAction(req, res) {
         return new Promise (async (resolve, reject) => {
             try {
-                return resolve(await this.countryService.updateCountry(req.body.id, req.body.name, req.body.code));
+                return resolve(await this.countryService.updateCountry(req.params.id, req.body));
             } catch (error) {
                 return reject(error);
             }
@@ -38,7 +38,7 @@ module.exports = class CountryController {
     deleteAction(req, res) {
         return new Promise (async (resolve, reject) => {
             try {
-                return resolve(await this.countryService.deleteCountry(req.body.id));
+                return resolve(await this.countryService.deleteCountry(req.params.id));
             } catch (error) {
                 return reject(error);
             }
