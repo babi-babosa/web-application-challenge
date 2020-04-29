@@ -1,0 +1,8 @@
+{
+    "port" : 3000,
+    "mongoDBConnection": "mongodb+srv://barbara-barbosa:t123456@cluster0-7j3dl.gcp.mongodb.net/test?retryWrites=true&w=majority",
+    "basicAuthentication": {
+        "username": "harryPotter",
+        "password": "itsleviosanotleviosa"
+    }
+}
