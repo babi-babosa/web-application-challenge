@@ -2,12 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import Navbar from './Components/Navbar/NavBar';
+import FormControl from './Components/Form/formComponent';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
   <React.StrictMode>
     <Navbar />
+    <FormControl />
   </React.StrictMode>,
   document.getElementById('root')
 );
