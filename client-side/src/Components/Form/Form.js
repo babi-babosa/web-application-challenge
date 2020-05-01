@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
@@ -6,62 +6,34 @@ import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import Spinner from "react-bootstrap/Spinner";
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import ReactCSSTransitionGroup from 'react-transition-group'; 
 import './formComponent.css';
 
-class FormControl extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            firstName: "",
-            lastName: "",
-            startDate: new Date(),
-            toggle: false,
-        };
+function UserForm() {
+  // Declare a new state variable, which we'll call "count"
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [countrySelected, setCountrySelected] = useState('');
+  const [birthdayDate, setBirthdayDate] = useState(new Date());
+  const [isLoading, setLoading] = useState(false);
+  const [allChecked, checkInputs] = useState(false);
 
-        this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    handleChange = date => {
-        this.setState({
-            startDate: date
-        });
-    };
-      
-    handleInputChange(event) {
-        const target = event.target;
-        const value = target.value;
-        const name = target.name;
-
-        this.setState({
-            [name]: value
-        });
-    }
-
-    handleSubmit(event) {
-        this.setState({
-            toggle: true
-        });
-    }
-
-    render() {
-        return (
-            <Card style={{ width: '500px' }}>
+  return (
+    <Card style={{ width: '500px' }}>
                 <Card.Body>
                         <Form>
                             <Form.Group controlId="formFirstAndLastName">
                                 <Row>
                                     <Col>
                                         <Form.Label>First Name</Form.Label>
-                                        <Form.Control type="firstName" placeholder="First name" onChange={this.handleInputChange}/>
+                                        <Form.Control type="firstName" placeholder="First name" value={firstName} onChange={(event) => setFirstName(event.target.value)}/>
                                         <Form.Text className="text-muted">
                                             *You're first name is required.
                                         </Form.Text>
                                     </Col>
                                     <Col>
                                         <Form.Label>Last Name</Form.Label>
-                                        <Form.Control type="LastName" placeholder="Last name" onChange={this.handleInputChange}/>
+                                        <Form.Control type="lastName" placeholder="Last name" value={lastName} onChange={(event) => setLastName(event.target.value)}/>
                                         <Form.Text className="text-muted">
                                             *You're last name is required.
                                         </Form.Text>
@@ -71,7 +43,7 @@ class FormControl extends React.Component {
                             
                             <Form.Group controlId="formCountry">
                                 <Form.Label>Select Country</Form.Label>
-                                <Form.Control as="select">
+                                <Form.Control as="select" onSelect={(event) => setCountrySelected('Portugal')}>
                                     <option>Portugal</option>
                                     <option>Spain</option>
                                     <option>France</option>
@@ -85,17 +57,17 @@ class FormControl extends React.Component {
                                 <Form.Label>Birthday</Form.Label>
                                 <br></br>
                                 <DatePicker className="date-picker"
-                                        selected={this.state.startDate}
-                                        onChange={this.handleChange}
+                                        selected={birthdayDate}
+                                        onChange={(date) => setBirthdayDate(date)}
                                 />
                                 <Form.Text className="text-muted">
                                     *Input a birthday date is required.
                                 </Form.Text>
                             </Form.Group>
 
-                            <Button variant="primary" type="submit" onClick={this.handleSubmit} disabled={this.state.toggle}>
+                            <Button variant="primary" type="submit" onClick={() => setLoading(isLoading ? false : true)} disabled={ !allChecked }>
                                 {
-                                    this.state.toggle &&
+                                    isLoading &&
                                         <Spinner
                                             as="span"
                                             animation="border"
@@ -104,13 +76,12 @@ class FormControl extends React.Component {
                                             aria-hidden="true"
                                         />
                                 }
-                                {' '}   Submit registration
+                                {' '}   Submit registration 
                             </Button>
                         </Form>
                 </Card.Body>
             </Card>
-        );
-    }
+  )
 }
 
-  export default FormControl;
+export default UserForm;
