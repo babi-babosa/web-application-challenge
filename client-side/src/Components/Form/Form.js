@@ -11,13 +11,14 @@ import Select from 'react-select';
 import List from '../List/List';
 import axios from 'axios';
 import './formComponent.css';
+import { messageService } from '../../Services/messaging';
 
 function UserForm() {
-  // Declare a new state variable, which we'll call "count"
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [countrySelected, setCountrySelected] = useState('');
   const [birthdayDate, setBirthdayDate] = useState(new Date());
+
   const [isLoading, setLoading] = useState(false);
   const [isWaiting, setWaiting] = useState(true);
   const [allChecked, checkInputs] = useState(false);
@@ -29,7 +30,6 @@ function UserForm() {
   useEffect(() => {
     axios.get(`http://localhost:4000/api/v1/countries`)
     .then(res => {
-        console.log("resss", res);
         const countries = res.data;
         countries.forEach(country => {
           options.push({value: country._id, label: country.name});
@@ -39,9 +39,10 @@ function UserForm() {
   }, [options, setWaiting])
 
   const onSubmit = values => {
+    messageService.sendMessage(`Hello ${values.firstName} ${values.lastName} from ${values.countrySelected}`)
     console.log(values); 
-    setLoading(isLoading = true); 
-    allChecked = true;
+    //setLoading(isLoading = true); 
+    //allChecked = true;
   };
 
   return (
