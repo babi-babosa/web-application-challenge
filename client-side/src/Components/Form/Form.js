@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
@@ -26,6 +26,7 @@ function UserForm(props) {
   const [finalPhrase, setPhrase] = useState('');
   const { triggerValidation, register, errors } = useForm();
   const options = [];
+  const form = useRef(null);
 
   useEffect(() => {
     axios.get(`http://localhost:4000/api/v1/countries`)
@@ -48,7 +49,7 @@ function UserForm(props) {
   return (
     <Card style={{ width: '500px' }}>
           <Card.Body>
-                  <Form>
+                  <Form ref={form}>
                       <Form.Group controlId="formFirstAndLastName">
                           <Row>
                               <Col>
@@ -132,11 +133,11 @@ function UserForm(props) {
                             setLoading(true);
                             messageService.sendMessage(`Hello ${firstName} ${lastName} from ${countrySelected}`);
                             props.handleSubmit({
-                              fisrtName:'miau1',
-                              lastName: 'miau2',
-                              country: 'miaulandia',
-                              birthdayDate: 'quandoeuquiser',
-                            })
+                              fisrtName: firstName,
+                              lastName: lastName,
+                              country: countrySelected,
+                              birthdayDate: birthdayDate.toLocaleString().split(',')[0],
+                            });
                           }
                         }}
                       >
