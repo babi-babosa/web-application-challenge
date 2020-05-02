@@ -13,7 +13,7 @@ import axios from 'axios';
 import './formComponent.css';
 import { messageService } from '../../Services/messaging';
 
-function UserForm() {
+function UserForm(props) {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [countrySelected, setCountrySelected] = useState('');
@@ -131,6 +131,12 @@ function UserForm() {
                           if (resultF && resultL && isbirthdayDateInputed && countrySelected !== '') { 
                             setLoading(true);
                             messageService.sendMessage(`Hello ${firstName} ${lastName} from ${countrySelected}`);
+                            props.handleSubmit({
+                              fisrtName:'miau1',
+                              lastName: 'miau2',
+                              country: 'miaulandia',
+                              birthdayDate: 'quandoeuquiser',
+                            })
                           }
                         }}
                       >

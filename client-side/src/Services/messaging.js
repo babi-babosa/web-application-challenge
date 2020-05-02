@@ -5,7 +5,9 @@ const subject = new Subject();
 export const messageService = {
     sendMessage: message => {
         subject.next()
-        subject.next({ text: message })
+        subject.next({ 
+            text: message 
+        })
     },
     getMessage: () => subject.asObservable()
 };

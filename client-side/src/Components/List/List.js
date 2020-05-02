@@ -6,13 +6,15 @@ class List extends React.Component {
     constructor(props) {
         super(props);
 
-        this.handleInputChange = this.handleInputChange.bind(this);
+        this.state = {
+            usersInfo: []
+        };
     }
 
-    handleInputChange(event) {
-        const target = event.target;
-        const value = target.value;
-        const name = target.name;
+    componentDidMount() {
+    }
+
+    componentWillUnmount() {
     }
 
     render() {
@@ -28,11 +30,17 @@ class List extends React.Component {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                            <td>{this.props.firstName} {this.props.lastName}</td>
-                            <td>{this.props.country}</td>
-                            <td>{this.props.birthdayDate}</td>
-                            </tr>
+                            {
+                                this.state.usersInfo.map((userInfo, key) => {
+                                    return (  
+                                        <tr key={key}>
+                                            <td>{userInfo.firstName} {userInfo.lastName}</td>
+                                            <td>{userInfo.country}</td>
+                                            <td>{userInfo.birthdayDate}</td>
+                                        </tr>
+                                    )
+                                })
+                            }
                         </tbody>
                     </Table>
                 </Card.Body>
