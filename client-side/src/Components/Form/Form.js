@@ -24,7 +24,7 @@ function UserForm() {
   const [allChecked, checkInputs] = useState(false);
   const [isbirthdayDateInputed, birthdayDateInputed] = useState(false);
   const [finalPhrase, setPhrase] = useState('');
-  const { handleSubmit, register, errors } = useForm();
+  const { triggerValidation, register, errors } = useForm();
   const options = [];
 
   useEffect(() => {
@@ -48,7 +48,7 @@ function UserForm() {
   return (
     <Card style={{ width: '500px' }}>
           <Card.Body>
-                  <Form onSubmit={ handleSubmit(onSubmit) }>
+                  <Form>
                       <Form.Group controlId="formFirstAndLastName">
                           <Row>
                               <Col>
@@ -97,7 +97,7 @@ function UserForm() {
                               options={options}  
                               isLoading={isWaiting}
                               isDisabled={isWaiting}
-                              onChange={(value, _) => setCountrySelected(value.value) }
+                              onChange={(value, _) => setCountrySelected(value.label)}
                               placeholder="Select a country..."
                             />
                           {
@@ -124,7 +124,16 @@ function UserForm() {
                           } 
                       </Form.Group>
 
-                      <Button variant="primary" type="submit" disabled={ allChecked }>
+                      <Button variant="primary"  disabled={ allChecked }
+                        onClick={async () => {
+                          const resultL = await triggerValidation("lastName");
+                          const resultF = await triggerValidation("firstName");
+                          if (resultF && resultL && isbirthdayDateInputed && countrySelected !== '') { 
+                            setLoading(true);
+                            messageService.sendMessage(`Hello ${firstName} ${lastName} from ${countrySelected}`);
+                          }
+                        }}
+                      >
                           {
                               isLoading &&
                                   <Spinner
