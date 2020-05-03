@@ -1,0 +1,4 @@
+.Notification-information {
+    margin-top: 20px !important;
+    transition: width 0.5s, height 0.5s, opacity 0.5s 0.5s;
+}

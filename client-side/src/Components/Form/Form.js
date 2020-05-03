@@ -20,9 +20,7 @@ function UserForm(props) {
 
   const [isLoading, setLoading] = useState(false);
   const [isWaiting, setWaiting] = useState(true);
-  const [allChecked, checkInputs] = useState(false);
   const [isbirthdayDateInputed, birthdayDateInputed] = useState(false);
-  const [finalPhrase, setPhrase] = useState('');
   const { triggerValidation, register, errors } = useForm();
   const options = [];
   const form = useRef(null);
@@ -38,12 +36,25 @@ function UserForm(props) {
     })
   }, [options, setWaiting])
 
-  const onSubmit = values => {
-    messageService.sendMessage(`Hello ${values.firstName} ${values.lastName} from ${values.countrySelected}`)
-    console.log(values); 
-    //setLoading(isLoading = true); 
-    //allChecked = true;
-  };
+  const onSubmit = async () => {
+    const resultL = await triggerValidation("lastName");
+    const resultF = await triggerValidation("firstName");
+    if (resultF && resultL && isbirthdayDateInputed && countrySelected !== '') { 
+      setLoading(true);
+      let age = Math.abs(birthdayDate.getUTCFullYear() - new Date().getUTCFullYear());
+      let inputedDate = birthdayDate.toLocaleString().split(',')[0].split(' ')[0];
+      let day = inputedDate.split('/')[1];
+      let month = inputedDate.split('/')[0];
+      messageService.sendMessage(`Hello ${firstName} ${lastName} from ${countrySelected}. On ${day} day of ${month} you will be ${age} years old.`);
+      props.handleSubmit({
+        firstName: firstName,
+        lastName: lastName,
+        country: countrySelected,
+        birthdayDate: inputedDate,
+      });
+      setLoading(false);
+    }
+  }
 
   return (
     <Card style={{ width: '500px' }}>
@@ -124,29 +135,8 @@ function UserForm(props) {
                           } 
                       </Form.Group>
 
-                      <Button variant="primary"  disabled={ allChecked }
-                        onClick={async () => {
-                          const resultL = await triggerValidation("lastName");
-                          const resultF = await triggerValidation("firstName");
-                          if (resultF && resultL && isbirthdayDateInputed && countrySelected !== '') { 
-                            setLoading(true);
-                            let ageMs = Date.now() - birthdayDate.getTime();
-                            let age = new Date(ageMs);
-                            console.log("age 1", age);
-                            console.log("age.getUTCFullYear()", age.getUTCFullYear());
-                            age = Math.abs(age.getUTCFullYear() - new Date().getUTCFullYear());
-                            console.log("age 2", age);
-                            console.log("ageMs", ageMs);
-                            console.log("new Date().getUTCFullYear()", new Date().getUTCFullYear());
-                            messageService.sendMessage(`Hello ${firstName} ${lastName} from ${countrySelected}. On ${birthdayDate.getDay()} day of ${birthdayDate.getMonth()} you will be ${age} years old.`);
-                            props.handleSubmit({
-                              firstName: firstName,
-                              lastName: lastName,
-                              country: countrySelected,
-                              birthdayDate: birthdayDate.toLocaleString().split(',')[0].split(' ')[0],
-                            });
-                          }
-                        }}
+                      <Button variant="primary"  disabled={ isLoading }
+                        onClick={onSubmit}
                       >
                           {
                               isLoading &&
@@ -162,9 +152,6 @@ function UserForm(props) {
                       </Button>
                   </Form>
           </Card.Body>
-          <div hidden={ !allChecked }>
-            <p> Hello ​ {firstName} {lastName} ​ from ​ {countrySelected} ​. </p>
-          </div>
       </Card>  
   )
 }

@@ -8,7 +8,6 @@ import Revisited from './Containers/Revisited/Revisited';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {
   BrowserRouter,
-  BrowserRouter as Router,
   Switch,
   Route
 } from "react-router-dom";

@@ -1,7 +1,9 @@
 import React from 'react';
 import { messageService } from '../../Services/messaging';
+import { AnimateOnChange } from 'react-animation'
+import './NotificationComponent.css';
 
-class Toast extends React.Component {
+class Notification extends React.Component {
     constructor(props) {
         super(props);
 
@@ -11,10 +13,8 @@ class Toast extends React.Component {
     }
 
     componentDidMount() {
-        // subscribe to home component messages
         this.subscription = messageService.getMessage().subscribe(message => {
             if (message) {
-                // add message to local state if not empty
                 this.setState({ message: message });
             }
         });
@@ -29,12 +29,18 @@ class Toast extends React.Component {
         return (
             <div>
                 {
-                    message != '' &&
-                    <div className="alert alert-success">{message.text}</div>
+                    message !== '' &&
+                    <AnimateOnChange
+                        animationIn="bounceIn"
+                        animationOut="bounceOut"
+                        durationOut={200}
+                    >
+                        <div className="alert alert-success Notification-information">{message.text}</div>
+                    </AnimateOnChange>
                 }
             </div>
         );
     }
 }
 
-export default Toast ;
+export default Notification ;

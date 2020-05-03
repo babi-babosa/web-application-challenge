@@ -4,7 +4,7 @@ class Revisited extends React.Component {
   render() {
     return (
       <div>
-        Login
+        This route was supposed to be private.
       </div>
     )
   }

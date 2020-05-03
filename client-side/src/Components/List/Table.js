@@ -21,7 +21,12 @@ const TableBody = (props) => {
             <tr className="click-me" 
                 key={index}
                 onClick={() => {
-                    messageService.sendMessage(`Hello ${row.firstName} ${row.lastName} from ${row.country}.`);
+                    let date = row.birthdayDate.toLocaleString().split(',')[0].split(' ')[0].split('/');               
+                    let month = date[0];
+                    let day = date[1];
+                    let year = date[2];
+                    let age = Math.abs(parseInt(year) - new Date().getUTCFullYear());
+                    messageService.sendMessage(`Hello ${row.firstName} ${row.lastName} from ${row.country}. On ${day} day of ${month} you will be ${age} years old.`);
                 }}
             >
                 <td>{row.firstName} {row.lastName}</td>
@@ -37,7 +42,6 @@ const TableBody = (props) => {
 class UseTable extends Component {
     render() {
         const { usersData } = this.props
-        console.log("ola", usersData);
         return (
             <Table responsive>
                 <TableHeader />
