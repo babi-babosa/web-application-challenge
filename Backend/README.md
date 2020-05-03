@@ -6,8 +6,8 @@ The mongodb that I use is in MongoDB Atlas (cloud), so you have a configuration 
 
 To init this application you will need to 
 
-npm install
-npm start OR npm run dev (if you want to use nodemon)
+`npm install`
+`npm start OR npm run dev (if you want to use nodemon)`
 
 ## Postman Collection
 In dir api\postman-collection you have the postmand collection that you can import in postman. 
