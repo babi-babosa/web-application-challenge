@@ -1,3 +1,23 @@
+## Introduction
+Hi, this is a REACT app to users enter their first and last name, it's country and age. After that, the system will give them a welcome message.
+
+## How to install
+To init this application you will need to 
+
+`npm install`
+And after that
+`npm start OR npm run dev (if you want to use nodemon)`
+
+## Postman Collection
+In dir api\postman-collection you have the postmand collection that you can import in postman. 
+With this, you don't need to preocupate with what you need to input in request body to "create" a new country.
+
+## Basic Authentication
+For some requests (RUD), you need to add basic authentication. Inside configs dir, you can find the username and password used in this project.
+
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
