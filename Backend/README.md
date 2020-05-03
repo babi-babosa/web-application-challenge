@@ -1,12 +1,18 @@
-# Instalação
+## Introduction
+Hi, this is a REST API to CRUD countries. It's written in Node.Js with the help of Express and MongoDB (to save everything). As MongoDB ORM, I use Mongoose.
 
-## Mongoose (MongoDB ORM)
-npm install mongoose
+## How to install
+The mongodb that I use is in MongoDB Atlas (cloud), so you have a configuration file with a connection string and you don't need to install mongodb server.
 
-## Mongo db (Mongo db in cloud - atlas)
-needs access to get mongodb data
+To init this application you will need to 
 
+npm install
+npm start OR npm run dev (if you want to use nodemon)
 
+## Postman Collection
+In dir api\postman-collection you have the postmand collection that you can import in postman. 
+With this, you don't need to preocupate with what you need to input in request body to "create" a new country.
 
-npm init -y :: create node js project
-npm i -D nodemon :: install nodemon to refresh every change we make
+## Basic Authentication
+For some requests (RUD), you need to add basic authentication. Inside configs dir, you can find the username and password used in this project.
+
