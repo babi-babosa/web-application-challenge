@@ -4,6 +4,10 @@ const countrySchema = require('../models/country.js');
 
 let _dbConnection;
 
+/**
+ * initDb - Function to init database connection and return a callback
+ * @param {*} callback 
+ */
 function initDb(callback) {
 
     if (_dbConnection) {

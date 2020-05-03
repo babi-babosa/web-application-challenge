@@ -1,15 +1,26 @@
 const mongoose = require('mongoose');
 const countrySchema = require('../models/country.js');
 const Country = mongoose.model('country', countrySchema, 'country');
-const ErrorResponse = require('../helpers/errorResponse.js');
+const ResponseHandler = require('../helpers/ResponseHandler.js');
 
 module.exports = class CountryService {
+
+    /**
+     * Country service constructor
+     */
     constructor() {
+        this.responseHandler = new ResponseHandler();
     }
     
+    /**
+     * createCountry - Function to save a country in database
+     * 
+     * @param {string} name 
+     * @param {string} code 
+     */
     createCountry(name, code) {
-        return new Promise(async (resolve, reject) => {
-            await new Country({
+        return new Promise((resolve, reject) => {
+            new Country({
                 name,
                 code
             }).save()
@@ -22,8 +33,11 @@ module.exports = class CountryService {
         });
     }
 
+    /**
+     * readCountries - Function to find all countries in database
+     */
     readCountries() {
-        return new Promise( (resolve, reject) => {
+        return new Promise((resolve, reject) => {
             Country.find()
             .then(countries => { 
                 resolve(countries);
@@ -34,44 +48,44 @@ module.exports = class CountryService {
         });
     }
 
+    /**
+     * updateCountry - Function to update a country with some specific id
+     * 
+     * @param {string} id 
+     * @param {*} newData
+     */
     updateCountry(id, newData) {
-        return new Promise(async (resolve, reject) => {
-            await Country.updateMany({
+        return new Promise((resolve, reject) => {
+            Country.updateMany({
                 _id: id,
             }, newData)
-            .then(res => {
-                resolve({
-                    message: `Country with id ${id} was successfully updated`
-                });
+            .then(() => {
+                resolve(this.responseHandler.successResponseFormatter(`Country with id ${id} was successfully updated.`));
             })
-            .catch(error => {
-                console.log("Errror", error)
-                reject(
-                {
-                    errorStatus: 400,
-                    response: {
-                        error_message: `Country with id ${id} not exist in our system`
-                    }
-                });
+            .catch((error) => {
+                console.log("updateCountry error", error);
+                reject(this.responseHandler.errorResponseFormatter(`Country with id ${id} not exist in our system.`));
             });
         });
     }
 
+    /**
+     * deleteCountry - Function to delete a country with some id
+     * 
+     * @param {string} id 
+     */
     deleteCountry(id) {
-        return new Promise(async (resolve, reject) => {
-            await Country.findById(id).deleteOne()
+        return new Promise((resolve, reject) => {
+            Country.findById(id)
+            .deleteOne()
             .then(res => {
                 if (res.deletedCount == 0 ) {
-                    return resolve({
-                        message: `Country with id ${id} does not exist in our system`
-                    });
+                    return resolve(this.responseHandler.errorResponseFormatter(`Country with id ${id} does not exist in our system.`));
                 }
-                resolve({
-                    message: `Country with id ${id} was successfully deleted`
-                });
+                return resolve(this.responseHandler.successResponseFormatter(`Country with id ${id} was successfully deleted.`));
             })
             .catch(error => {
-                reject(error);
+                reject(this.responseHandler.errorResponseFormatter(error.message));
             });
         });
     }

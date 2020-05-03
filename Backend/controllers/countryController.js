@@ -1,10 +1,22 @@
 const CountryService = require('../services/countryService.js');
 
 module.exports = class CountryController {
-    constructor(countryService) {
-        this.countryService = countryService || new CountryService();
+
+    /**
+     * CountryController constructor 
+     * 
+     * @param {*} countryService - if there's no countryService inserted when CountryController is inited, by default it will be a new CountryService()
+     */
+    constructor(countryService = new CountryService()) {
+        this.countryService = countryService;
     }
 
+    /**
+     * listAction - Function to list all countryElements
+     * 
+     * @param {*} req 
+     * @param {*} res 
+     */
     listAction(req, res){
         return new Promise (async (resolve, reject) => {
             try {
@@ -15,6 +27,12 @@ module.exports = class CountryController {
         })
     }
 
+    /**
+     * createAction - Function to create a new country with inputed data
+     * 
+     * @param {*} req 
+     * @param {*} res 
+     */
     createAction(req, res) {
         return new Promise (async (resolve, reject) => {
             try {
@@ -25,6 +43,12 @@ module.exports = class CountryController {
         });
     }
 
+    /**
+     * updateAction - Function to update some country indicated by the user throught it's id 
+     * 
+     * @param {*} req 
+     * @param {*} res 
+     */
     updateAction(req, res) {
         return new Promise (async (resolve, reject) => {
             try {
@@ -35,6 +59,12 @@ module.exports = class CountryController {
         });
     }
 
+    /**
+     * deleteAction - Function to delete a specific country, indicated by it's id
+     * 
+     * @param {*} req 
+     * @param {*} res 
+     */
     deleteAction(req, res) {
         return new Promise (async (resolve, reject) => {
             try {
