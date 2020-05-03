@@ -2,6 +2,8 @@ import React from 'react';
 import UserForm from '../../Components/Form/Form'
 import Toast from '../../Components/Toast/Toast'
 import UseTable from '../../Components/List/Table'
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 class Homepage extends React.Component {
   state = {
@@ -12,33 +14,18 @@ class Homepage extends React.Component {
     this.setState({ usersInfo: [...this.state.usersInfo, userInfo] })
   }
 
-  render() {
-    const usersInfo = [
-      {
-        firstName: 'Charlie',
-        lastName: 'Janitor',
-        country: 'Portugal',
-        birthdayDate: 'ola'
-      },
-      {
-        firstName: 'Bárbara',
-        lastName: 'Inês',
-        country: 'Portugal',
-        birthdayDate: 'miau'
-      },
-      {
-        firstName: 'Manuel',
-        lastName: 'Alves',
-        country: 'France',
-        birthdayDate: 'miau'
-      },
-    ]
-    
+  render() {    
     return (
       <div className="container">
-        <UserForm handleSubmit={this.handleSubmit} />
+         <Row>
+            <Col>
+                <UserForm handleSubmit={this.handleSubmit} />
+            </Col>
+            <Col>
+                <UseTable usersData={this.state.usersInfo} />
+            </Col>
+        </Row>
         <Toast />
-        <UseTable usersData={this.state.usersInfo} />
       </div>
     )
   }

@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import Table from 'react-bootstrap/Table';
+import { messageService } from '../../Services/messaging';
+import './listComponent.css';
 
 const TableHeader = () => {
     return (
-        <thead>
+        <thead className="table-head" >
             <tr>
                 <th>Name</th>
                 <th>Country</th>
@@ -16,11 +18,16 @@ const TableHeader = () => {
 const TableBody = (props) => {
     const rows = props.usersData.map((row, index) => {
         return ( 
-        <tr key={index}>
-            <td>{row.firstName} {row.lastName}</td>
-            <td>{row.country}</td>
-            <td>{row.birthdayDate}</td>
-        </tr>
+            <tr className="click-me" 
+                key={index}
+                onClick={() => {
+                    messageService.sendMessage(`Hello ${row.firstName} ${row.lastName} from ${row.country}.`);
+                }}
+            >
+                <td>{row.firstName} {row.lastName}</td>
+                <td>{row.country}</td>
+                <td>{row.birthdayDate}</td>
+            </tr>
         )
     })
 

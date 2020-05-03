@@ -8,7 +8,6 @@ import Spinner from "react-bootstrap/Spinner";
 import DatePicker from "react-datepicker";
 import { useForm } from "react-hook-form";
 import Select from 'react-select';
-import List from '../List/List';
 import axios from 'axios';
 import './formComponent.css';
 import { messageService } from '../../Services/messaging';
@@ -131,12 +130,20 @@ function UserForm(props) {
                           const resultF = await triggerValidation("firstName");
                           if (resultF && resultL && isbirthdayDateInputed && countrySelected !== '') { 
                             setLoading(true);
-                            messageService.sendMessage(`Hello ${firstName} ${lastName} from ${countrySelected}`);
+                            let ageMs = Date.now() - birthdayDate.getTime();
+                            let age = new Date(ageMs);
+                            console.log("age 1", age);
+                            console.log("age.getUTCFullYear()", age.getUTCFullYear());
+                            age = Math.abs(age.getUTCFullYear() - new Date().getUTCFullYear());
+                            console.log("age 2", age);
+                            console.log("ageMs", ageMs);
+                            console.log("new Date().getUTCFullYear()", new Date().getUTCFullYear());
+                            messageService.sendMessage(`Hello ${firstName} ${lastName} from ${countrySelected}. On ${birthdayDate.getDay()} day of ${birthdayDate.getMonth()} you will be ${age} years old.`);
                             props.handleSubmit({
-                              fisrtName: firstName,
+                              firstName: firstName,
                               lastName: lastName,
                               country: countrySelected,
-                              birthdayDate: birthdayDate.toLocaleString().split(',')[0],
+                              birthdayDate: birthdayDate.toLocaleString().split(',')[0].split(' ')[0],
                             });
                           }
                         }}

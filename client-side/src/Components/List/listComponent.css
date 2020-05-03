@@ -1,0 +1,8 @@
+.click-me:hover {
+    cursor: pointer;
+    background-color: wheat;
+}
+
+.table-head {
+    background-color: #f2faf6;
+}
