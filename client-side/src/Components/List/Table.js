@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Table from 'react-bootstrap/Table';
 import { messageService } from '../../Services/messaging';
 import './listComponent.css';
@@ -39,7 +39,7 @@ const TableBody = (props) => {
     return <tbody>{rows}</tbody>
 }
 
-class UseTable extends Component {
+class UseTable extends React.Component {
     render() {
         const { usersData } = this.props
         return (
