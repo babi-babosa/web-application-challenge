@@ -1,13 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import Navbar from './Components/Navbar/NavBar';
 import * as serviceWorker from './serviceWorker';
+import Homepage from './Containers/Homepage/Homepage';
+import Revisited from './Containers/Revisited/Revisited';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {
+  BrowserRouter,
+  Switch,
+  Route
+} from "react-router-dom";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <BrowserRouter>
+    <Navbar />
+    <Switch>
+        <Route path="/revisited">
+            <Revisited />
+        </Route>
+        <Route path="/">
+            <Homepage />
+        </Route>
+    </Switch>
+  </BrowserRouter>,
   document.getElementById('root')
 );
 
