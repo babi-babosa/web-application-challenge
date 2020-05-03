@@ -12,15 +12,18 @@ import {
   Route
 } from "react-router-dom";
 
+// Translations
+import './i18n';
+
 ReactDOM.render(
   <BrowserRouter>
-    <Navbar />
+      <Navbar />
     <Switch>
         <Route path="/revisited">
             <Revisited />
         </Route>
         <Route path="/">
-            <Homepage />
+              <Homepage />
         </Route>
     </Switch>
   </BrowserRouter>,
