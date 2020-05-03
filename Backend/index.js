@@ -4,6 +4,7 @@ const basicAuth = require('express-basic-auth');
 const databaseConnection = require("./factory/database-connection.js");
 const CountryController = require("./controllers/countryController.js");
 const configs = require('./configs/config.json');
+const cors = require('cors');
 
 const countryController = new CountryController();
 
@@ -11,6 +12,7 @@ const countryController = new CountryController();
  * App Variables
  */
 const app = express();
+app.use(cors());
 app.use(bodyParser.json());
 const port = configs.port || "8000";
 const basicAuthentication = basicAuth({
@@ -94,7 +96,7 @@ app.delete("/api/v1/countries/:id", basicAuthentication, (req, res) => {
 /**
  * Listen REST Api 
  */
-databaseConnection.initDb( function (err) {
+databaseConnection.initDb(function (err) {
     if (err) {
         throw err;
     } else {
