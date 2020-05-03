@@ -75,7 +75,7 @@ app.post("/api/v1/countries", basicAuthentication, (req, res) => {
 app.put("/api/v1/countries/:id", basicAuthentication, (req, res) => {
     countryController.updateAction(req, res)
     .then(
-        payload => res.json(payload)
+        payload => res.json(payload.response)
     )
     .catch(
         error => res.status(error.errorStatus).json(error.response)
@@ -86,10 +86,10 @@ app.put("/api/v1/countries/:id", basicAuthentication, (req, res) => {
 app.delete("/api/v1/countries/:id", basicAuthentication, (req, res) => {
     countryController.deleteAction(req, res)
     .then(
-        payload => res.json(payload)
+        payload => res.json(payload.response)
     )
     .catch(
-        error => res.status(400).json(error)
+        error => res.status(400).json(error.response)
     );
 });
 

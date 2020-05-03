@@ -1,0 +1,159 @@
+{
+	"info": {
+		"_postman_id": "6a0bc9ca-a8f2-40ca-a465-449895d75a8e",
+		"name": "Local Project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET countries",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/api/v1/countries",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"v1",
+						"countries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Country",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "itsleviosanotleviosa",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "harryPotter",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"USA\",\n\t\"code\": \"US\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/v1/countries",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"v1",
+						"countries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE country",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "itsleviosanotleviosa",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "harryPotter",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/api/v1/countries/5ea9dcbcda82820df49eefa2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"v1",
+						"countries",
+						"5ea9dcbcda82820df49eefa2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT Country",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "itsleviosanotleviosa",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "harryPotter",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\" : \"alteracao2\",\n\t\"code\": \"TT22\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/v1/countries/5ea9dcbcda82820df49eefa2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"v1",
+						"countries",
+						"5ea9dcbcda82820df49eefa2"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
