@@ -4,10 +4,16 @@ Hi, this is a REST API to CRUD countries. It's written in Node.Js with the help 
 ## How to install
 The mongodb that I use is in MongoDB Atlas (cloud), so you have a configuration file with a connection string and you don't need to install mongodb server.
 
-To init this application you will need to 
+First, you need to clone this repository. Then, go to client-side folder:
+
+`cd Backend`
+
+After that, to init this application you will need to:
 
 `npm install`
-And after that
+
+And finnaly:
+
 `npm start` OR `npm run dev (if you want to use nodemon)`
 
 ## Postman Collection
